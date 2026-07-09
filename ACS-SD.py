@@ -680,15 +680,14 @@ def execute(
 # =========================================================
 
 if __name__ == "__main__":
+    stats_dir = "./results"
+    os.makedirs(stats_dir, exist_ok=True)
+    dataset = "adult"
+   
+    df = pd.read_csv(f"./datasets/{dataset}.csv").astype(str)
 
-    for dataset in os.listdir("../datasets/"):
-        stats_dir = "./results"
-        os.makedirs(stats_dir, exist_ok=True)
-
-        df = pd.read_csv(f"./datasets/{dataset}.csv").astype(str)
-
-        if SINGLE_TARGET:
-            for target_value in df[CLASS_COL].unique():
-                execute(df, dataset, target=[CLASS_COL, target_value], n_execs=N_EXECS)
-        else:
-            execute(df, dataset, target=[CLASS_COL, None], n_execs=N_EXECS)
+    if SINGLE_TARGET:
+        for target_value in df[CLASS_COL].unique():
+            execute(df, dataset, target=[CLASS_COL, target_value], n_execs=N_EXECS)
+    else:
+        execute(df, dataset, target=[CLASS_COL, None], n_execs=N_EXECS)
