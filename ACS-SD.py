@@ -20,6 +20,9 @@ from constants import (
     ACS_PHEROMONE_SCALE,
     EARLY_STOP_NO_IMPROVE,
     MIN_ENTROPY_THRESHOLD,
+    SINGLE_TARGET,
+    CLASS_COL,
+    N_EXECS
 )
 
 """ np.random.seed(200)
@@ -677,22 +680,15 @@ def execute(
 # =========================================================
 
 if __name__ == "__main__":
-    SINGLE_TARGET = False
-    CLASS_COL = "Class"
-    N_EXECS = 6
-    SPECIAL_DATASETS = {"car", "flare", "nursery"}
 
     for dataset in os.listdir("../datasets/"):
-        #dataset = "splice"
-        stats_dir = f"../datasets/{dataset}/stats/"
+        stats_dir = "./results"
         os.makedirs(stats_dir, exist_ok=True)
 
-        name_csv = f"{dataset}_for_FSSD" if dataset in SPECIAL_DATASETS else dataset
-        df = pd.read_csv(f"../datasets/{dataset}/{name_csv}.csv").astype(str)
+        df = pd.read_csv(f"./datasets/{dataset}.csv").astype(str)
 
         if SINGLE_TARGET:
             for target_value in df[CLASS_COL].unique():
                 execute(df, dataset, target=[CLASS_COL, target_value], n_execs=N_EXECS)
         else:
             execute(df, dataset, target=[CLASS_COL, None], n_execs=N_EXECS)
-            #exit(0)

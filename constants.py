@@ -18,3 +18,8 @@ MIN_ENTROPY_THRESHOLD: float = 0.1 # Umbral mínimo de entropía para continuar
 # --- Clustering jerárquico (fase1) ---
 CLUSTER_PERCENTILE: int = 40       # Percentil para umbral adaptativo de densidad
 CLUSTER_MIN_THRESHOLD: float = 0.1 # Umbral mínimo de distancia en clustering
+
+# --- MAIN parametros ---
+SINGLE_TARGET = False
+CLASS_COL = "Class"
+N_EXECS = 6
